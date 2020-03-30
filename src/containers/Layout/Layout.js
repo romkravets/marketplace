@@ -20,19 +20,8 @@ const layout = props => {
       })
     }, []);
 
-   // const prodactsRender = prodactsState.map((data, idx) => {
-   //       return (
-   //       <div key={idx}>
-   //          <img src={data.image}/>
-   //          <p>{data.name}</p>
-   //          <span>${data.price}</span>
-   //         
-   //       </div>
-   //       )
-   // });
    return (
       <div className="prodacts">
-         {/* {prodactsRender} */}
          <Prodact  prodacts={prodactsState}/>
       </div>
    );
