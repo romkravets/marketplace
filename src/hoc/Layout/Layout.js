@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from '../../axios-orders';
 import Prodact from '../../components/Prodact/Prodact';
+import Footer from '../../components/Footer/Footer';
 import Aux from '../Auxiliary/Auxiliary';
 
 
@@ -26,7 +27,7 @@ const layout = props => {
          Toolbar
          SideDrawer
             <Prodact  prodacts={prodactsState}/>
-         Footer
+         <Footer/>
       </Aux>
    );
 }
