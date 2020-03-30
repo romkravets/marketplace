@@ -4,7 +4,7 @@ const prodact = props => {
    const prodactsRender = props.prodacts.map((data, idx) => {
       return (
       <div key={idx}>
-         <img src={data.image}/>
+         <img src={data.image} alt=""/>
          <p>{data.name}</p>
          <span>${data.price}</span>
       </div>

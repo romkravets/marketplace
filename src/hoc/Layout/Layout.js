@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from '../../axios-orders';
 import Prodact from '../../components/Prodact/Prodact';
+import Aux from '../Auxiliary/Auxiliary';
 
 
 const layout = props => {
@@ -21,9 +22,12 @@ const layout = props => {
     }, []);
 
    return (
-      <div className="prodacts">
-         <Prodact  prodacts={prodactsState}/>
-      </div>
+      <Aux>
+         Toolbar
+         SideDrawer
+            <Prodact  prodacts={prodactsState}/>
+         Footer
+      </Aux>
    );
 }
 
