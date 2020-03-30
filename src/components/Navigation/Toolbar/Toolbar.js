@@ -11,8 +11,8 @@ const toolbar = (props) => (
       <div className={classes.Logo}>
          <Logo />
       </div>
-      <div>
-         {/* <NavigationItems isAuthenticated={props.isAuth} /> */}
+      <div className={classes.DesktopOnly}>
+         <NavigationItems />
       </div>
       <DrawerToggle clicked={props.drawerToggleClicked} />
    </header>
