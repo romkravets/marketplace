@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from '../../axios-orders';
+import Prodact from '../../components/Prodact/Prodact';
 
 
 const layout = props => {
@@ -19,18 +20,20 @@ const layout = props => {
       })
     }, []);
 
-   const prodactsRender = prodactsState.map(function(data, idx) {
-         return (
-         <div key={idx}>
-            <img src={data.image}/>
-            <p>{data.name}</p>
-         <span>${data.price}</span>
-         </div>
-         )
-   });
+   // const prodactsRender = prodactsState.map((data, idx) => {
+   //       return (
+   //       <div key={idx}>
+   //          <img src={data.image}/>
+   //          <p>{data.name}</p>
+   //          <span>${data.price}</span>
+   //         
+   //       </div>
+   //       )
+   // });
    return (
       <div className="prodacts">
-         {prodactsRender}
+         {/* {prodactsRender} */}
+         <Prodact  prodacts={prodactsState}/>
       </div>
    );
 }

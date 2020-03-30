@@ -23,7 +23,7 @@ class App extends Component {
   } );;
   }
   render() {
-    const prodactsRender = this.state.prodacts.map(function(data, idx) {
+    const prodactsRender = this.state.prodacts.map((data, idx) => {
       return (
       <div key={idx}>
           <img src={data.image}/>
@@ -34,7 +34,7 @@ class App extends Component {
   });
     return (
       <div className="App">
-        {prodactsRender}
+        {/* {prodactsRender} */}
         <Layout/>
       </div>
     );
