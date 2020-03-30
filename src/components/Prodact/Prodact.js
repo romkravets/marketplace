@@ -12,7 +12,7 @@ const prodact = props => {
 });
   return (
    <div>
-   {prodactsRender}
+      {prodactsRender}
    </div>
   )
 }
