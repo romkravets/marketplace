@@ -10,7 +10,7 @@
 
 @media (min-width: 500px) {
    .NavigationItems {
-       flex-flow: row;
+      flex-flow: row;
    }
 }
 
@@ -26,7 +26,6 @@
    width: 100%;
    display: block;
    font-size: 12px;
-   line-height: 40px;
 }
 
 .NavigationItems a img {
@@ -41,23 +40,23 @@
 
 @media (min-width: 500px) {
    .NavigationItems {
-       margin: 0;
-       display: flex;
-       height: 100%;
-       width: auto;
-       align-items: center;
+      margin: 0;
+      display: flex;
+      height: 100%;
+      width: auto;
+      align-items: center;
    }
 
    .NavigationItems a {
-       color: white;
-       height: 100%;
-       margin: 0 10px;
-       border-bottom: 4px solid transparent;
+      color: white;
+      height: 100%;
+      margin: 0 10px;
+      border-bottom: 4px solid transparent;
    }
 
    .NavigationItems a:hover,
    .NavigationItems a:active,
    .NavigationItems a.active {
-       color: white;
+      color: white;
    }
 }
