@@ -1,13 +1,14 @@
 import React from 'react';
 import classes from './Prodact.css';
 
-import Aux from '../../../hoc/Auxiliary/Auxiliary';
+import Favorite from '../../UI/Favorite/Favorite';
 
 const prodact = props => {
    const prodactsRender = props.prodacts.map((data, idx) => {
       return (
       <div key={idx} className={classes.Grid}>
          <img src={data.image} alt=""/>
+         <Favorite />
             <div className={classes.Descriprion}>
                <p>{data.name}</p>
                <span>${data.price}</span>
