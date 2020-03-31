@@ -1,0 +1,37 @@
+  .Button {
+     background: transparent;
+     border: none;
+     color: white;
+     outline: none;
+     cursor: pointer;
+     font: inherit;
+     padding: 10px;
+     margin: 10px;
+     border-radius: 4px;
+     font-size: 14px;
+     text-transform: uppercase;
+  }
+
+  /* .Button:first-of-type {
+   margin-left: 0;
+   padding-left: 0;
+} */
+
+  .Button:disabled {
+     color: #ccc;
+     cursor: not-allowed;
+  }
+
+  .Sell {
+     color: #ffffff;
+     background: #349A89;
+     padding: 9px 50px;
+  }
+
+  .Success {
+     background: #349A89;
+  }
+
+  .Danger {
+     color: #944317;
+  }
