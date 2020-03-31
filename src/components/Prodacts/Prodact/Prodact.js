@@ -10,7 +10,7 @@ const prodact = props => {
          <img src={data.image} alt=""/>
          <Favorite
             clicked={props.clicked}
-            favoriteProps={props.favorite} />
+            favoriteProps={data.favorite} />
             <div className={classes.Descriprion}>
                <p>{data.name}</p>
                <span>${data.price}</span>
