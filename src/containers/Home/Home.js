@@ -32,9 +32,7 @@ const home = (props) => {
   };
 
   return (
-    <div>
-      <Prodacts prodacts={prodactsState} favoriteCliced={isFavoriteHandler} />
-    </div>
+    <Prodacts prodacts={prodactsState} favoriteCliced={isFavoriteHandler} />
   );
 };
 

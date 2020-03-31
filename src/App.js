@@ -8,15 +8,15 @@ import Layout from "./hoc/Layout/Layout";
 
 const app = (props) => {
   return (
-    <div className={classes.App}>
-      <Layout>
-        <Switch>
-          <Route path="/favorite" component={Saved} />
-          <Route path="/sell" component={Sell} />
-          <Route path="/" exect component={Home} />
-        </Switch>
-      </Layout>
-    </div>
+    // <div className={classes.App}>
+    <Layout>
+      <Switch>
+        <Route path="/favorite" component={Saved} />
+        <Route path="/sell" component={Sell} />
+        <Route path="/" exect component={Home} />
+      </Switch>
+    </Layout>
+    // </div>
   );
 };
 
