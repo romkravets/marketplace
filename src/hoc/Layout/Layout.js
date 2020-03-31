@@ -9,6 +9,7 @@ import Aux from '../Auxiliary/Auxiliary';
 
 const layout = props => {
 
+
    const [prodactsState, setProdactsState]= useState([]);
    const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
    const [isFavorite, setFavorite] = useState(false);
@@ -36,29 +37,28 @@ const layout = props => {
     };
 
     const isFavoriteHandler = () => {
-      const disabledInfo = {
-         ...prodactsState
-      };
-      console.log(disabledInfo);
-      for (let key in disabledInfo) {
-         console.log(disabledInfo[key].favorite);
-      }
+      // const disabledInfo = {
+      //    ...prodactsState
+      // };
+      // console.log(disabledInfo);
+      // for (let key in disabledInfo) {
+      //    console.log(disabledInfo[key].favorite);
+      // }
    };
-
-   return (
-      <Aux>
-         <Toolbar
-            drawerToggleClicked={sideDrawerToggleHandler}/>
-         <SideDrawer
-            open={sideDrawerIsVisible}
-            closed={sideDrawerClosedHandler}/>
-          <Prodacts
-            prodacts={prodactsState}
-            favoriteCliced={isFavoriteHandler}
-            />
-         <Footer/>
-      </Aux>
-   );
-}
+      return (
+            <Aux>
+               <Toolbar
+                  drawerToggleClicked={sideDrawerToggleHandler}/>
+               <SideDrawer
+                  open={sideDrawerIsVisible}
+                  closed={sideDrawerClosedHandler}/>
+               <Prodacts
+                  prodacts={prodactsState}
+                  favoriteCliced={isFavoriteHandler}
+                  />
+               <Footer/>
+            </Aux>
+         );
+      }
 
 export default layout;
