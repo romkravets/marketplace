@@ -8,7 +8,9 @@ const prodact = props => {
       return (
       <div key={idx} className={classes.Grid}>
          <img src={data.image} alt=""/>
-         <Favorite />
+         <Favorite
+            clicked={props.clicked}
+            favoriteProps={props.favorite} />
             <div className={classes.Descriprion}>
                <p>{data.name}</p>
                <span>${data.price}</span>

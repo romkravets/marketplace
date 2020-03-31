@@ -11,6 +11,7 @@ const layout = props => {
 
    const [prodactsState, setProdactsState]= useState([]);
    const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
+   const [isFavorite, setFavorite] = useState(false);
 
    useEffect(() => {
       axios.get('https://marketplace-91001.firebaseio.com/products.json')
@@ -31,6 +32,10 @@ const layout = props => {
 
     const sideDrawerToggleHandler = () => {
       setSideDrawerIsVisible(!sideDrawerIsVisible);
+    };
+
+    const isFavoriteHandler = () => {
+      setFavorite(!isFavorite);
       console.log('click');
     };
 
@@ -41,7 +46,11 @@ const layout = props => {
          <SideDrawer
             open={sideDrawerIsVisible}
             closed={sideDrawerClosedHandler}/>
-          <Prodacts  prodacts={prodactsState}/>
+          <Prodacts
+            prodacts={prodactsState}
+            addFavorite={isFavorite}
+            favoriteCliced={isFavoriteHandler}
+            />
          <Footer/>
       </Aux>
    );
