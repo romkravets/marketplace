@@ -4,6 +4,7 @@
    color: #C0C4CE;
    width: 100%;
    display: flex;
+   font-size: 14px;
    justify-content: center;
    align-items: center;
 }

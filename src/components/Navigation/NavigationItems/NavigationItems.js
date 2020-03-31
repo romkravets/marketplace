@@ -13,10 +13,10 @@ const navigationItems = ( props ) => (
             : <NavigationItem link="/logout">Logout</NavigationItem>} */}
          {/* <NavigationItem></NavigationItem> */}
          <Button btnType="Sell">SELL</Button>
-            <a href="">LOGIN</a>
-            <a href="">
-                <img src={heartIcon} alt=""/>
-            </a>
+        <a href="">LOGIN</a>
+        <a href="">
+            <img src={heartIcon} alt=""/>
+        </a>
     </div>
 );
 
