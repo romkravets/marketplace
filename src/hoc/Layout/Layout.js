@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from '../../axios-orders';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
-import Prodact from '../../components/Prodact/Prodact';
+import Prodacts from '../../components/Prodacts/Prodacts';
 import Footer from '../../components/Footer/Footer';
 import Aux from '../Auxiliary/Auxiliary';
 
@@ -41,7 +41,7 @@ const layout = props => {
          <SideDrawer
             open={sideDrawerIsVisible}
             closed={sideDrawerClosedHandler}/>
-         <Prodact  prodacts={prodactsState}/>
+          <Prodacts  prodacts={prodactsState}/>
          <Footer/>
       </Aux>
    );
