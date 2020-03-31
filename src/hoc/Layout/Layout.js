@@ -1,64 +1,52 @@
-import React, {useState, useEffect} from 'react';
-import axios from '../../axios-orders';
-import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
-import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
-import Prodacts from '../../components/Prodacts/Prodacts';
-import Footer from '../../components/Footer/Footer';
-import Aux from '../Auxiliary/Auxiliary';
+import React, { useState } from "react";
 
+import Modal from "../../components/UI/Modal/Modal";
+import Auth from "../../containers/Auth/Auth";
+import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
+import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 
-const layout = props => {
+import classes from "./Layout.css";
 
+import Footer from "../../components/Footer/Footer";
+import Aux from "../Auxiliary/Auxiliary";
 
-   const [prodactsState, setProdactsState]= useState([]);
-   const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
-   const [isFavorite, setFavorite] = useState(false);
+const layout = (props) => {
+  const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
+  //const [isFavorite, setFavorite] = useState(false);
+  const [purchasing, setPurchasing] = useState(false);
 
-   useEffect(() => {
-      axios.get('https://marketplace-91001.firebaseio.com/products.json')
-      .then( response => {
-        const prodacts = response.data;
-        const updateProdacts = prodacts.map(prodact => {
-          return {
-              ...prodact
-          }
-      })
-      setProdactsState(updateProdacts);
-      //console.log(updateProdacts);
-      })
-    }, []);
+  const sideDrawerClosedHandler = () => {
+    setSideDrawerIsVisible(false);
+  };
 
-    const sideDrawerClosedHandler = () => {
-      setSideDrawerIsVisible(false);
-    };
+  const sideDrawerToggleHandler = () => {
+    setSideDrawerIsVisible(!sideDrawerIsVisible);
+  };
 
-    const sideDrawerToggleHandler = () => {
-      setSideDrawerIsVisible(!sideDrawerIsVisible);
-    };
+  const purchaseCancelHandler = () => {
+    setPurchasing(false);
+  };
 
-    const isFavoriteHandler = () => {
-      // const disabledInfo = {
-      //    ...prodactsState
-      // };
-      // console.log(disabledInfo);
-      // for (let key in disabledInfo) {
-      //    console.log(disabledInfo[key].favorite);
-      // }
-   };
-      return (
-            <Aux>
-               <Toolbar
-                  drawerToggleClicked={sideDrawerToggleHandler}/>
-               <SideDrawer
-                  open={sideDrawerIsVisible}
-                  closed={sideDrawerClosedHandler}/>
-               <Prodacts
-                  prodacts={prodactsState}
-                  favoriteCliced={isFavoriteHandler}
-                  />
-               <Footer/>
-            </Aux>
-         );
-      }
+  const purchaseLoginHandler = () => {
+    setPurchasing(!false);
+  };
+
+  return (
+    <Aux>
+      <Modal show={purchasing} modalClosed={purchaseCancelHandler}>
+        <Auth />
+      </Modal>
+      <Toolbar
+        drawerToggleClicked={sideDrawerToggleHandler}
+        loginCliced={purchaseLoginHandler}
+      />
+      <SideDrawer open={sideDrawerIsVisible} closed={sideDrawerClosedHandler} />
+
+      <main className={classes.Content}>{props.children}</main>
+
+      <Footer />
+    </Aux>
+  );
+};
 
 export default layout;
