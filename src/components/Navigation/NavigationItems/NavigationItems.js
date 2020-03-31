@@ -19,7 +19,9 @@ const navigationItems = (props) => (
         SELL
       </Button>
     </Link>
-    <Link onClick={props.clicked}>LOGIN</Link>
+    <Link to="" onClick={props.clicked}>
+      LOGIN
+    </Link>
     <Link to="/favorite">
       <img src={heartIcon} alt="" />
     </Link>
