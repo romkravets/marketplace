@@ -7,9 +7,9 @@
    font-size: 14px;
    justify-content: center;
    align-items: center;
-   position: fixed;
+   /* position: fixed;
    bottom: 0;
-   width: 100%;
+   width: 100%; */
 }
 
 .Footer a {
