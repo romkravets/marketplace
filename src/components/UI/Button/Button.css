@@ -30,6 +30,9 @@
 
   .Success {
      background: #349A89;
+     padding: 19px 10px;
+     width: 385px;
+     display: block;
   }
 
   .Danger {
