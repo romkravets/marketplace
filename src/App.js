@@ -4,8 +4,10 @@ import Home from "./containers/Home/Home";
 import Sell from "./containers/Sell/Sell";
 import Login from "./containers/Auth/Login/Login";
 import Registration from "./containers/Auth/Registration/Registration";
+import Auth from "./containers/Auth/Auth";
+
 import Saved from "./containers/Saved/Saved";
-import classes from "./App.css";
+// import classes from "./App.css";
 import Layout from "./hoc/Layout/Layout";
 
 const app = (props) => {
@@ -14,7 +16,7 @@ const app = (props) => {
     <Layout>
       <Switch>
         <Route path="/favorite" component={Saved} />
-        <Route path="/auth/login" component={Login} />
+        <Route path="/auth/login" component={Auth} />
         <Route path="/auth/registration" component={Registration} />
         <Route path="/sell" component={Sell} />
         <Route path="/" exect component={Home} />

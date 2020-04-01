@@ -1,4 +1,3 @@
-
 export const updateObject = (oldObject, updateProperty) => {
    return {
       ...oldObject,
