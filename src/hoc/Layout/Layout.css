@@ -1,4 +1,9 @@
 .Content {
    margin-top: 56px;
    min-height: calc(100vh - 126px);
+   max-width: 855px;
+   display: flex;
+   flex-direction: column;
+   justify-content: start;
+   margin: 56px auto;
 }
