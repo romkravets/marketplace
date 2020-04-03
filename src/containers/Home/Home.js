@@ -4,6 +4,7 @@ import classes from "./Home.css";
 //import Prodacts from "../../components/Prodacts/Products";
 import Card from "../../components/Card/Card";
 //import Currency from "../../components/Currency/Currency";
+import Search from "../../components/Search/Search";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 
 class Home extends Component {
@@ -11,7 +12,10 @@ class Home extends Component {
     products: [],
     loading: true,
     selectedPostId: null,
-    error: false
+    //error: false,
+    query: "",
+    filteredData: [],
+    queryError: true
   };
   // const [productsState, setProductsState] = useState([]);
   // const [error, setError] = useState(false);
@@ -29,21 +33,7 @@ class Home extends Component {
           });
         }
         this.setState({ loading: false, products: fetchProduct });
-        // console.log(response.data);
-        // const productsData = response.data;
-        // const res = Object.keys(productsData).map((name) => {
-        //   var obj = {};
-        //   obj[name] = productsData[name];
-        //   return obj;
-        // });
-        // console.log(res);
-        // const updateProducts = res.map((product) => {
-        //   return {
-        //     ...product
-        //   };
-        // });
-        // this.setState({ products: updateProducts });
-        // console.log(updateProducts);
+        this.setState({ queryError: true });
       })
       .catch((error) => {
         // console.log(error);
@@ -51,26 +41,72 @@ class Home extends Component {
       });
   }
 
-  postSelectedHandler = (id) => {
-    this.setState({ selectedPostId: id });
-    console.log("click favorite");
-    const prodIndex = this.state.products.findIndex((p) => p.id === id);
-    const newFavStatus = !this.state.products[prodIndex].favorite;
-    const updatedProducts = [...this.state.products];
-    console.log(this.state.products[prodIndex].favorite);
-    updatedProducts[prodIndex] = {
-      ...this.state.products[prodIndex],
-      favorite: newFavStatus
-    };
-    return {
-      ...this.state,
-      products: updatedProducts
-    };
+  handleInputChange = (event) => {
+    const query = event.target.value;
+
+    this.setState((prevState) => {
+      const filteredData = prevState.data.filter((element) => {
+        return element.title.toLowerCase().includes(query.toLowerCase());
+      });
+
+      return {
+        query,
+        filteredData
+      };
+    });
+    this.setState({ queryError: false });
+    // if (this.state.query === "" || this.state.query.length > 1) {
+    //   // if (this.state.query.length % 2 === 0) {
+    //   return this.setState({ filteredData: [] });
+    //   // }
+    // }
   };
 
+  componentWillMount() {
+    this.getData();
+  }
+
+  getData = () => {
+    axios
+      .get("https://marketplace-91001.firebaseio.com/product.json")
+      .then((res) => {
+        const fetchProduct = [];
+        for (let key in res.data) {
+          fetchProduct.push({
+            ...res.data[key],
+            id: key
+          });
+          const { query } = this.state;
+          const filteredData = fetchProduct.filter((element) => {
+            return element.title.toLowerCase().includes(query.toLowerCase());
+          });
+          this.setState({ loading: false, data: filteredData });
+          console.log(this.state.data);
+        }
+      })
+      .catch((error) => {
+        this.setState({ loading: false });
+      });
+  };
+
+  // postSelectedHandler = (id) => {
+  //   this.setState({ selectedPostId: id });
+  //   console.log("click favorite");
+  //   const prodIndex = this.state.products.findIndex((p) => p.id === id);
+  //   const newFavStatus = !this.state.products[prodIndex].favorite;
+  //   const updatedProducts = [...this.state.products];
+  //   console.log(this.state.products[prodIndex].favorite);
+  //   updatedProducts[prodIndex] = {
+  //     ...this.state.products[prodIndex],
+  //     favorite: newFavStatus
+  //   };
+  //   return {
+  //     ...this.state,
+  //     products: updatedProducts
+  //   };
+  // };
+
   render() {
-    // let cards = <p style={{ textAlign: "center" }}>Something went wrong!</p>;
-    // if (!this.state.error) {
     // cards = this.state.products.map((poroduct) => {
     //   return (
     //     <Card
@@ -82,10 +118,10 @@ class Home extends Component {
     //   );
     // });
     // console.log(this.state.products);
-
-    return (
-      <Aux>
-        {/* <Currency /> */}
+    let block = null;
+    block = <p style={{ textAlign: "center" }}>Something went wrong!</p>;
+    if (!this.state.loading && this.state.queryError) {
+      block = (
         <div className={classes.Prodact}>
           {this.state.products.map((poroduct) => (
             <Card
@@ -98,10 +134,34 @@ class Home extends Component {
             />
           ))}
         </div>
+      );
+    }
+
+    if (!this.state.queryError) {
+      block = (
+        <div className={classes.Prodact}>
+          {this.state.filteredData.map((i) => (
+            <Card
+              key={i.id}
+              title={i.title}
+              image={i.image}
+              price={i.price}
+              author={i.author}
+              clicked={() => this.postSelectedHandler()}
+            />
+          ))}
+        </div>
+      );
+    }
+
+    return (
+      <Aux>
+        {/* <Currency /> */}
+        <Search search={this.handleInputChange} />
+        {block}
       </Aux>
     );
   }
-  // <Prodacts products={productsState} favoriteCliced={isFavoriteHandler} />
 }
 
 export default Home;
