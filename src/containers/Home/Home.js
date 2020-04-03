@@ -1,39 +1,107 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import axios from "../../axios-orders";
-import Prodacts from "../../components/Prodacts/Prodacts";
+import classes from "./Home.css";
+//import Prodacts from "../../components/Prodacts/Products";
+import Card from "../../components/Card/Card";
+//import Currency from "../../components/Currency/Currency";
+import Aux from "../../hoc/Auxiliary/Auxiliary";
 
-const home = (props) => {
-  console.log(props);
-  const [prodactsState, setProdactsState] = useState([]);
+class Home extends Component {
+  state = {
+    products: [],
+    loading: true,
+    selectedPostId: null,
+    error: false
+  };
+  // const [productsState, setProductsState] = useState([]);
+  // const [error, setError] = useState(false);
+  // const [selectedPostId, setSelectedPostId] = useState(null);
 
-  useEffect(() => {
+  componentDidMount() {
     axios
-      .get("https://marketplace-91001.firebaseio.com/products.json")
-      .then((response) => {
-        const prodacts = response.data;
-        const updateProdacts = prodacts.map((prodact) => {
-          return {
-            ...prodact
-          };
-        });
-        setProdactsState(updateProdacts);
-        //console.log(updateProdacts);
+      .get("https://marketplace-91001.firebaseio.com/product.json")
+      .then((res) => {
+        const fetchProduct = [];
+        for (let key in res.data) {
+          fetchProduct.push({
+            ...res.data[key],
+            id: key
+          });
+        }
+        this.setState({ loading: false, products: fetchProduct });
+        // console.log(response.data);
+        // const productsData = response.data;
+        // const res = Object.keys(productsData).map((name) => {
+        //   var obj = {};
+        //   obj[name] = productsData[name];
+        //   return obj;
+        // });
+        // console.log(res);
+        // const updateProducts = res.map((product) => {
+        //   return {
+        //     ...product
+        //   };
+        // });
+        // this.setState({ products: updateProducts });
+        // console.log(updateProducts);
+      })
+      .catch((error) => {
+        // console.log(error);
+        this.setState({ loading: false });
       });
-  }, []);
+  }
 
-  const isFavoriteHandler = () => {
-    // const disabledInfo = {
-    //    ...prodactsState
-    // };
-    // console.log(disabledInfo);
-    // for (let key in disabledInfo) {
-    //    console.log(disabledInfo[key].favorite);
-    // }
+  postSelectedHandler = (id) => {
+    this.setState({ selectedPostId: id });
+    console.log("click favorite");
+    const prodIndex = this.state.products.findIndex((p) => p.id === id);
+    const newFavStatus = !this.state.products[prodIndex].favorite;
+    const updatedProducts = [...this.state.products];
+    console.log(this.state.products[prodIndex].favorite);
+    updatedProducts[prodIndex] = {
+      ...this.state.products[prodIndex],
+      favorite: newFavStatus
+    };
+    return {
+      ...this.state,
+      products: updatedProducts
+    };
   };
 
-  return (
-    <Prodacts prodacts={prodactsState} favoriteCliced={isFavoriteHandler} />
-  );
-};
+  render() {
+    // let cards = <p style={{ textAlign: "center" }}>Something went wrong!</p>;
+    // if (!this.state.error) {
+    // cards = this.state.products.map((poroduct) => {
+    //   return (
+    //     <Card
+    //       key={poroduct.id}
+    //       title={poroduct.title}
+    //       author={poroduct.author}
+    //       clicked={() => this.postSelectedHandler(poroduct.id)}
+    //     />
+    //   );
+    // });
+    // console.log(this.state.products);
 
-export default home;
+    return (
+      <Aux>
+        {/* <Currency /> */}
+        <div className={classes.Prodact}>
+          {this.state.products.map((poroduct) => (
+            <Card
+              key={poroduct.id}
+              title={poroduct.title}
+              image={poroduct.image}
+              price={poroduct.price}
+              author={poroduct.author}
+              clicked={() => this.postSelectedHandler(poroduct.id)}
+            />
+          ))}
+        </div>
+      </Aux>
+    );
+  }
+  // <Prodacts products={productsState} favoriteCliced={isFavoriteHandler} />
+}
+
+export default Home;

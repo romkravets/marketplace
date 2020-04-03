@@ -23,9 +23,13 @@
   }
 
   .Sell {
-     color: #ffffff;
      background: #349A89;
      padding: 9px 50px;
+  }
+
+  .Search {
+     background: #3E3961;
+     padding: 15px 50px;
   }
 
   .Success {

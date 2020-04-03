@@ -1,10 +1,4 @@
-.Prodact {
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: start;
-}
-
-.Grid {
+.Card {
    min-width: 202px;
    margin: 3px;
    background: #FFFFFF;
@@ -14,14 +8,14 @@
    position: relative;
 }
 
-.Grid span {
+.Card span {
    font-size: 18px;
    line-height: 21px;
    color: #101010;
    font-weight: bold;
 }
 
-.Grid p {
+.Card p {
    font-size: 15px;
    line-height: 17px;
    margin: 0 0 7px 0;

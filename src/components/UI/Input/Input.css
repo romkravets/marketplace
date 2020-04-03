@@ -1,7 +1,6 @@
 .Input {
    width: 100%;
    padding: 10px;
-   box-sizing: border-box;
 }
 
 .Label {
@@ -22,7 +21,6 @@
    padding: 19px 10px;
    display: block;
    width: 100%;
-   box-sizing: border-box;
 }
 
 .InputElement:focus {

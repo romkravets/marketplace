@@ -1,0 +1,35 @@
+.Search {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 15px;
+}
+
+.SearchInput {
+   background: #F9FAFB;
+   border: 1px solid #DEDEE0;
+   box-sizing: border-box;
+   border-radius: 5px;
+   font: inherit;
+   padding: 12px 10px 12px 30px;
+   display: block;
+   width: 37%;
+   margin-right: 10px;
+   background-image: url('../../assets//images/search-icon.svg');
+   background-repeat: no-repeat;
+   background-position: 10px;
+}
+
+.Location {
+   background: #F9FAFB;
+   border: 1px solid #DEDEE0;
+   box-sizing: border-box;
+   border-radius: 5px;
+   font: inherit;
+   padding: 12px 10px 12px 30px;
+   display: block;
+   width: 20%;
+   background-image: url('../../assets//images/location-filled.svg');
+   background-repeat: no-repeat;
+   background-position: 10px;
+}
