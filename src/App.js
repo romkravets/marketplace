@@ -5,12 +5,10 @@ import Sell from "./containers/Sell/Sell";
 import Login from "./containers/Auth/Login/Login";
 import Registration from "./containers/Auth/Registration/Registration";
 import Saved from "./containers/Saved/Saved";
-import classes from "./App.css";
 import Layout from "./hoc/Layout/Layout";
 
 const app = (props) => {
   return (
-    // <div className={classes.App}>
     <Layout>
       <Switch>
         <Route path="/favorite" component={Saved} />
@@ -20,7 +18,6 @@ const app = (props) => {
         <Route path="/" exect component={Home} />
       </Switch>
     </Layout>
-    // </div>
   );
 };
 
