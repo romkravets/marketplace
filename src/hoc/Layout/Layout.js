@@ -33,9 +33,9 @@ const layout = (props) => {
 
   return (
     <Aux>
-      <Modal show={purchasing} modalClosed={purchaseCancelHandler}>
+      {/* <Modal show={purchasing} modalClosed={purchaseCancelHandler}>
         <Auth />
-      </Modal>
+      </Modal> */}
       <Toolbar
         drawerToggleClicked={sideDrawerToggleHandler}
         loginCliced={purchaseLoginHandler}

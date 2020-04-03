@@ -3,6 +3,8 @@ import axios from "../../axios-orders";
 import classes from "./Home.css";
 //import Prodacts from "../../components/Prodacts/Products";
 import Card from "../../components/Card/Card";
+//import Currency from "../../components/Currency/Currency";
+import Aux from "../../hoc/Auxiliary/Auxiliary";
 
 class Home extends Component {
   state = {
@@ -79,20 +81,24 @@ class Home extends Component {
     //     />
     //   );
     // });
-    console.log(this.state.products);
+    // console.log(this.state.products);
+
     return (
-      <div className={classes.Prodact}>
-        {this.state.products.map((poroduct) => (
-          <Card
-            key={poroduct.id}
-            title={poroduct.title}
-            image={poroduct.image}
-            price={poroduct.price}
-            author={poroduct.author}
-            clicked={() => this.postSelectedHandler(poroduct.id)}
-          />
-        ))}
-      </div>
+      <Aux>
+        {/* <Currency /> */}
+        <div className={classes.Prodact}>
+          {this.state.products.map((poroduct) => (
+            <Card
+              key={poroduct.id}
+              title={poroduct.title}
+              image={poroduct.image}
+              price={poroduct.price}
+              author={poroduct.author}
+              clicked={() => this.postSelectedHandler(poroduct.id)}
+            />
+          ))}
+        </div>
+      </Aux>
     );
   }
   // <Prodacts products={productsState} favoriteCliced={isFavoriteHandler} />
