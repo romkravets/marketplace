@@ -1,0 +1,27 @@
+.Card {
+   min-width: 202px;
+   margin: 3px;
+   background: #FFFFFF;
+   border: 1px solid #E4E4E4;
+   box-shadow: 0px 4px 14px rgba(121, 121, 121, 0.0527344);
+   border-radius: 4px;
+   position: relative;
+}
+
+.Card span {
+   font-size: 18px;
+   line-height: 21px;
+   color: #101010;
+   font-weight: bold;
+}
+
+.Card p {
+   font-size: 15px;
+   line-height: 17px;
+   margin: 0 0 7px 0;
+   color: #373738;
+}
+
+.Descriprion {
+   padding: 4px 12px 10px 12px;
+}
