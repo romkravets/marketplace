@@ -81,7 +81,7 @@ class Home extends Component {
             return element.title.toLowerCase().includes(query.toLowerCase());
           });
           this.setState({ loading: false, data: filteredData });
-          console.log(this.state.data);
+          // console.log(this.state.data);
         }
       })
       .catch((error) => {
@@ -89,22 +89,23 @@ class Home extends Component {
       });
   };
 
-  // postSelectedHandler = (id) => {
-  //   this.setState({ selectedPostId: id });
-  //   console.log("click favorite");
-  //   const prodIndex = this.state.products.findIndex((p) => p.id === id);
-  //   const newFavStatus = !this.state.products[prodIndex].favorite;
-  //   const updatedProducts = [...this.state.products];
-  //   console.log(this.state.products[prodIndex].favorite);
-  //   updatedProducts[prodIndex] = {
-  //     ...this.state.products[prodIndex],
-  //     favorite: newFavStatus
-  //   };
-  //   return {
-  //     ...this.state,
-  //     products: updatedProducts
-  //   };
-  // };
+  postSelectedHandler = (id) => {
+    const prodIndex = this.state.products.findIndex((p) => p.id === id);
+    console.log(this.state.products[prodIndex].favorite);
+    console.log("prodIndex", prodIndex);
+    const newFavStatus = !this.state.products[prodIndex].favorite;
+    console.log("newFavStatus", newFavStatus);
+    const updatedProducts = [...this.state.products];
+    updatedProducts[prodIndex] = {
+      ...this.state.products[prodIndex],
+      favorite: newFavStatus
+    };
+    console.log(updatedProducts);
+    return {
+      ...this.state,
+      products: updatedProducts
+    };
+  };
 
   render() {
     // cards = this.state.products.map((poroduct) => {
@@ -128,6 +129,7 @@ class Home extends Component {
               key={poroduct.id}
               title={poroduct.title}
               image={poroduct.image}
+              favorite={poroduct.favorite}
               price={poroduct.price}
               author={poroduct.author}
               clicked={() => this.postSelectedHandler(poroduct.id)}
@@ -147,7 +149,7 @@ class Home extends Component {
               image={i.image}
               price={i.price}
               author={i.author}
-              clicked={() => this.postSelectedHandler()}
+              // clicked={() => this.postSelectedHandler(i.id)}
             />
           ))}
         </div>

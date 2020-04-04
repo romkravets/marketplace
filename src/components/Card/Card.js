@@ -11,9 +11,9 @@ const card = (props) => (
   //       <div className="Author">{props.author}</div>
   //     </div>
   //   </article>
-  <div className={classes.Card} onClick={props.clicked}>
+  <div className={classes.Card}>
     <img src={props.image} alt="" />
-    <Favorite clicked={props.clicked} />
+    <Favorite clicked={props.clicked} isFavorite={props.favorite} />
     <div className={classes.Descriprion}>
       <p>{props.title}</p>
       <span>${props.price}</span>

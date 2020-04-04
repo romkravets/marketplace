@@ -5,12 +5,10 @@ import favoriteIcon from "../../../assets/images/favorite.svg";
 import favoriveClickedIcon from "../../../assets/images/favorite-click.svg";
 
 const favorite = (props) => {
+  console.log(props.isFavorite);
   return (
     <div className={classes.Favorite} onClick={props.clicked}>
-      <img
-        src={props.favoriteProps ? favoriveClickedIcon : favoriteIcon}
-        alt=""
-      />
+      <img src={props.isFavorite ? favoriveClickedIcon : favoriteIcon} alt="" />
     </div>
   );
 };
