@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import classes from "./Auth.css";
 
@@ -21,6 +22,20 @@ class Auth extends Component {
         validation: {
           required: true,
           isEmail: true,
+        },
+        valid: false,
+        touched: false,
+      },
+      user: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Tony Stark",
+        },
+        value: "",
+        isSignup: true,
+        validation: {
+          required: true,
         },
         valid: false,
         touched: false,
@@ -95,6 +110,7 @@ class Auth extends Component {
     this.props.onAuth(
       this.state.controls.email.value,
       this.state.controls.password.value,
+      this.state.controls.user.value,
       this.state.isSignup
     );
   };
@@ -119,6 +135,7 @@ class Auth extends Component {
         key={formElement.id}
         elementType={formElement.config.elementType}
         elementConfig={formElement.config.elementConfig}
+        isSignup={formElement.config.isSignup}
         value={formElement.config.value}
         invalid={!formElement.config.valid}
         shouldValidate={formElement.config.validation}
@@ -130,6 +147,11 @@ class Auth extends Component {
     if (this.props.loading) {
       form = <Spinner />;
     }
+    let authRedirect = null;
+
+    if (this.props.isAuthenticated) {
+      authRedirect = <Redirect to="/" />;
+    }
 
     let errorMerroge = null;
     if (this.props.error) {
@@ -137,6 +159,7 @@ class Auth extends Component {
     }
     return (
       <div className={classes.Auth}>
+        {authRedirect}
         {errorMerroge}
         <form onSubmit={this.submitHandler}>
           {form}
@@ -156,13 +179,14 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
+    isAuthenticated: state.auth.token !== null,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (email, password, isSignup) =>
-      dispatch(actions.auth(email, password, isSignup)),
+    onAuth: (email, password, displayName, isSignup) =>
+      dispatch(actions.auth(email, password, displayName, isSignup)),
   };
 };
 

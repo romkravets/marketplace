@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import axios from "../../axios-orders";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
@@ -13,72 +15,72 @@ class Sell extends Component {
         elementType: "input",
         elementConfig: {
           type: "text",
-          placeholder: "Mail Address"
+          placeholder: "Mail Address",
         },
         value: "",
         validation: {
-          required: true
-          //isEmail: true
+          required: true,
+          //isEmail: true,
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       location: {
         elementType: "input",
         elementConfig: {
           type: "text",
-          placeholder: "Location"
+          placeholder: "Location",
         },
         value: "",
         validation: {
-          required: true
+          required: true,
           //minLength: 6
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       description: {
         elementType: "textarea",
         elementConfig: {
           type: "text",
-          placeholder: "For example: Iron man suit"
+          placeholder: "For example: Iron man suit",
         },
         value: "",
         validation: {
-          required: true
+          required: true,
           //minLength: 6
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       image: {
         elementType: "input",
         elementConfig: {
           type: "file",
-          placeholder: ""
+          placeholder: "",
         },
         value: "",
         validation: {
-          required: true
+          required: true,
           //minLength: 6
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       price: {
         elementType: "input",
         elementConfig: {
           type: "text",
-          placeholder: "Price"
+          placeholder: "Price",
         },
         value: "",
         validation: {
-          required: true
+          required: true,
           //minLength: 6
         },
         valid: false,
-        touched: false
-      }
+        touched: false,
+      },
     },
     // title: "",
     // location: "",
@@ -86,7 +88,7 @@ class Sell extends Component {
     image: "https://i.ibb.co/HBVnDZm/Mask.png",
     // author: "Max",
     // price: "",
-    favorite: false
+    favorite: false,
   };
 
   inputChangedHandler = (event, controlName) => {
@@ -97,8 +99,8 @@ class Sell extends Component {
           event.target.value,
           this.state.controls[controlName].validation
         ),
-        touched: true
-      })
+        touched: true,
+      }),
     });
 
     this.setState({ controls: updatedControls });
@@ -118,12 +120,16 @@ class Sell extends Component {
       image: this.state.image,
       author: this.state.author,
       price: this.state.controls.price.value,
-      favorite: this.state.favorite
+      favorite: this.state.favorite,
     };
     axios.post("/product.json", data).then((response) => {
       console.log(response);
     });
-    this.props.history.push("/");
+    if (this.props.isAuthenticated) {
+      this.props.history.push("/sell");
+    } else {
+      this.props.history.push("/auth/login");
+    }
   };
 
   // postDataHandler = () => {
@@ -147,7 +153,7 @@ class Sell extends Component {
     for (let key in this.state.controls) {
       formElmentsArray.push({
         id: key,
-        config: this.state.controls[key]
+        config: this.state.controls[key],
       });
     }
 
@@ -168,11 +174,19 @@ class Sell extends Component {
         <h2>Add product</h2>
         <form onSubmit={this.submitHandler}>
           {form}
-          <Button btnType="Success">SUBMIT</Button>
+          <Button btnType="Success">
+            {this.props.isAuthenticated ? "SUBMIT" : "SIGN UP TO SUBMIT"}
+          </Button>
         </form>
       </div>
     );
   }
 }
 
-export default Sell;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+  };
+};
+
+export default connect(mapStateToProps)(Sell);

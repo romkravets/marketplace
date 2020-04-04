@@ -8,11 +8,12 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (token, userId) => {
+export const authSuccess = (token, userId, userName) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
     userId: userId,
+    displayName: userName,
   };
 };
 
@@ -37,12 +38,13 @@ export const checkAuthTimeout = (expirationTime) => {
   };
 };
 
-export const auth = (email, password, isSignup) => {
+export const auth = (email, password, displayName, isSignup) => {
   return (dispatch) => {
     dispatch(authStart());
     const authData = {
       email: email,
       password: password,
+      displayName: displayName,
       returnSecureToken: true,
     };
     let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyADCx6rRTqPDTNi5H2rcFcBPzcb3u4QSBk`;
@@ -53,7 +55,13 @@ export const auth = (email, password, isSignup) => {
       .post(url, authData)
       .then((response) => {
         console.log(response);
-        dispatch(authSuccess(response.data.idToken, response.data.localId));
+        dispatch(
+          authSuccess(
+            response.data.idToken,
+            response.data.localId,
+            response.data.displayName
+          )
+        );
         dispatch(checkAuthTimeout(response.data.expiresIn));
       })
       .catch((err) => {

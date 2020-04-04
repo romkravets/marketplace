@@ -6,6 +6,7 @@ const initialState = {
   userId: null,
   error: null,
   loading: false,
+  userName: null,
 };
 
 const authStart = (state, action) => {
@@ -16,6 +17,7 @@ const authSuccess = (state, action) => {
   return updateObject(state, {
     token: action.idToken,
     userId: action.userId,
+    userName: action.displayName,
     error: null,
     loading: false,
   });
@@ -29,7 +31,7 @@ const authFail = (state, action) => {
 };
 
 const authLogout = (state, action) => {
-  return updateObject(state, { token: null, userId: null });
+  return updateObject(state, { token: null, userId: null, userName: null });
 };
 
 const reducer = (state = initialState, action) => {
