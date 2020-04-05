@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import axios from "../../axios-orders";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
-//import { updateObject, checkValidity } from "../../shared/utillity";
+import * as actions from "../../store/actions/index";
+import { updateObject, checkValidity } from "../../shared/utillity";
 
 import classes from "./Sell.css";
 
@@ -199,7 +200,17 @@ class Sell extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
+    loading: state.sell.loading,
+    token: state.auth.token,
+    userId: state.auth.userId,
   };
 };
 
-export default connect(mapStateToProps)(Sell);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSellProduct: (productData, token) =>
+      dispatch(actions.sellProduct(productData, token)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sell);
