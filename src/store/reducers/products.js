@@ -28,6 +28,15 @@ const initialState = {
     },
   ],
 };
+// const initialState = {
+//   products: [],
+//   loading: true,
+//   selectedPostId: null,
+//   //error: false,
+//   query: "",
+//   filteredData: [],
+//   queryError: true,
+// };
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
