@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import axios from "../../axios-orders";
+import { Link } from "react-router-dom";
+//import axios from "../../axios-orders";
 import { connect } from "react-redux";
 import classes from "./Home.css";
 //import Prodacts from "../../components/Prodacts/Products";
 import Card from "../../components/Card/Card";
 //import Currency from "../../components/Currency/Currency";
-import Search from "../../components/Search/Search";
+//import Search from "../../components/Search/Search";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import * as actions from "../../store/actions/index";
@@ -190,18 +191,39 @@ const home = (props) => {
   // }
 
   // // </Aux>
+
+  // const formElementsArray = [];
+  // for (let key in props.products) {
+  //   formElementsArray.push({
+  //     id: key,
+  //     products: props.products[key],
+  //   });
+  // }
+
+  // const fetchedProducts = [];
+  // for (let key in props.products) {
+  //   fetchedProducts.push({
+  //     ...props.products[key],
+  //     id: key,
+  //   });
+  // }
+  // console.log("fetchedProducts", fetchedProducts);
+  // console.log("props.products", props.products);
+  // console.log(props.products);
   let products = <Spinner />;
   if (!props.loading) {
-    const firstItems = props.products.slice(0, 30);
-    products = firstItems.map((order) => (
-      <Card
-        key={order.id}
-        title={order.title}
-        image={order.image}
-        favorite={order.favorite}
-        price={order.price}
-        author={order.author}
-      />
+    //const firstItems = props.products.slice(0, 30);
+    products = props.products.map((order) => (
+      <Link to={"/product/" + order.id}>
+        <Card
+          key={order.id}
+          title={order.productData.title}
+          image={order.productData.image}
+          favorite={order.productData.favorite}
+          price={order.productData.price}
+          author={order.productData.author}
+        />
+      </Link>
     ));
   }
   return (
