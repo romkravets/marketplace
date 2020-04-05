@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Route, Switch, withRouter } from "react-router-dom";
-import Home from "./containers/Home/Home";
-import Sell from "./containers/Sell/Sell";
-import Auth from "./containers/Auth/Auth";
-import Registration from "./containers/Auth/Registration/Registration";
-import Logout from "./containers/Auth/Logout/Logout";
-import Saved from "./containers/Saved/Saved";
-import Layout from "./hoc/Layout/Layout";
+// import Home from "./containers/Home/Home";
+// import Sell from "./containers/Sell/Sell";
+// import Auth from "./containers/Auth/Auth";
+// import Registration from "./containers/Auth/Registration/Registration";
+// import Logout from "./containers/Auth/Logout/Logout";
+// import Saved from "./containers/Saved/Saved";
+// import Layout from "./hoc/Layout/Layout";
+
+import Navigation from "./components/Nav/Navigation";
+import ProductsPage from "./containers/Products/Products";
+import FavoritesPage from "./containers/Favorites/Favorites";
 
 import * as actions from "./store/actions/index";
 
@@ -17,16 +21,23 @@ const app = (props) => {
   }, []);
 
   return (
-    <Layout>
-      <Switch>
-        <Route path="/favorite" component={Saved} />
-        <Route path="/auth/login" component={Auth} />
-        <Route path="/auth/logout" component={Logout} />
-        <Route path="/auth/registration" component={Registration} />
-        <Route path="/sell" component={Sell} />
-        <Route path="/" exect component={Home} />
-      </Switch>
-    </Layout>
+    // <Layout>
+    //   <Switch>
+    //     <Route path="/favorite" component={Saved} />
+    //     <Route path="/auth/login" component={Auth} />
+    //     <Route path="/auth/logout" component={Logout} />
+    //     <Route path="/auth/registration" component={Registration} />
+    //     <Route path="/sell" component={Sell} />
+    //     <Route path="/" exect component={Home} />
+    //   </Switch>
+    // </Layout>
+    <React.Fragment>
+      <Navigation />
+      <main>
+        <Route path="/" component={ProductsPage} exact />
+        <Route path="/favorites" component={FavoritesPage} />
+      </main>
+    </React.Fragment>
   );
 };
 
