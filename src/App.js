@@ -9,6 +9,7 @@ import Registration from "./containers/Auth/Registration/Registration";
 import Logout from "./containers/Auth/Logout/Logout";
 import Saved from "./containers/Saved/Saved";
 import Layout from "./hoc/Layout/Layout";
+import ProductItem from "./components/ProductItem/ProductItem";
 
 import * as actions from "./store/actions/index";
 
@@ -20,6 +21,8 @@ const app = (props) => {
   return (
     <Layout>
       <Switch>
+        <Route path="/product/:id" component={ProductItem} />
+        <Route path="/product" component={ProductItem} />
         <Route path="/favorite" component={Saved} />
         <Route path="/auth/login" component={Login} />
         <Route path="/auth/logout" component={Logout} />

@@ -9,6 +9,7 @@ import Card from "../../components/Card/Card";
 //import Search from "../../components/Search/Search";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
+import ProcuctItems from "../../components/ProductItem/ProductItem";
 import * as actions from "../../store/actions/index";
 
 const home = (props) => {
@@ -214,7 +215,17 @@ const home = (props) => {
   if (!props.loading) {
     //const firstItems = props.products.slice(0, 30);
     products = props.products.map((order) => (
-      <Link to={"/product/" + order.id}>
+      <div
+        key={order.id}
+        onClick={() =>
+          props.history.push({
+            pathname: "/product/" + order.id,
+            state: {
+              order,
+            },
+          })
+        }
+      >
         <Card
           key={order.id}
           title={order.productData.title}
@@ -223,7 +234,7 @@ const home = (props) => {
           price={order.productData.price}
           author={order.productData.author}
         />
-      </Link>
+      </div>
     ));
   }
   return (
