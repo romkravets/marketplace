@@ -192,7 +192,8 @@ const home = (props) => {
   // // </Aux>
   let products = <Spinner />;
   if (!props.loading) {
-    products = props.products.map((order) => (
+    const firstItems = props.products.slice(0, 30);
+    products = firstItems.map((order) => (
       <Card
         key={order.id}
         title={order.title}
@@ -205,7 +206,7 @@ const home = (props) => {
   }
   return (
     <Aux>
-      <div className={classes.Prodact}>{products}</div>;
+      <div className={classes.Prodact}>{products}</div>
     </Aux>
   );
 };

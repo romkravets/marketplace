@@ -1,6 +1,6 @@
 .Input {
    width: 100%;
-   padding: 10px;
+   padding: 10px 0;
 }
 
 .Label {
@@ -10,25 +10,33 @@
    text-transform: uppercase;
    display: block;
    color: #303030;
+   text-align: left;
+   padding-bottom: 5px;
+   font-weight: bold;
 }
 
 .InputElement {
-   background: #F9FAFB;
-   border: 1px solid #DEDEE0;
-   box-sizing: border-box;
+   background: rgb(249, 250, 251);
+   border: 1px solid rgb(222, 222, 224);
    border-radius: 5px;
    font: inherit;
    padding: 19px 10px;
    display: block;
    width: 100%;
+   font-size: 16px;
 }
 
 .InputElement:focus {
    outline: none;
-   background-color: #ccc;
+   background-color: rgb(224, 239, 255);
+}
+
+.InputElement::placeholder {
+   color: rgba(102, 102, 102, 0.466455);
+   font-size: 16px;
 }
 
 .Invalid {
-   border: 1px solid red;
-   background-color: #FDA49A;
+   border: 1px solid rgb(241, 83, 83);
+   background-color: rgb(253, 164, 154);
 }

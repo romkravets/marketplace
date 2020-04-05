@@ -55,6 +55,7 @@ const input = (props) => {
           onChange={props.changed}
         />
       );
+      break;
     default:
       inputElement = (
         <input

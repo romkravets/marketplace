@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import classes from "./Auth.css";
 
@@ -16,7 +17,7 @@ class Auth extends Component {
         elementType: "input",
         elementConfig: {
           type: "email",
-          placeholder: "Mail Address",
+          placeholder: "Example@gmail.com",
         },
         value: "",
         validation: {
@@ -45,6 +46,20 @@ class Auth extends Component {
         elementConfig: {
           type: "password",
           placeholder: "Password",
+        },
+        value: "",
+        validation: {
+          required: true,
+          minLength: 6,
+        },
+        valid: false,
+        touched: false,
+      },
+      passwordChack: {
+        elementType: "input",
+        elementConfig: {
+          type: "password",
+          placeholder: "Password Again",
         },
         value: "",
         validation: {
@@ -115,11 +130,11 @@ class Auth extends Component {
     );
   };
 
-  switchAuthModeHandler = () => {
-    this.setState((prevState) => {
-      return { isSignup: !prevState.isSignup };
-    });
-  };
+  // switchAuthModeHandler = () => {
+  //   this.setState((prevState) => {
+  //     return { isSignup: !prevState.isSignup };
+  //   });
+  // };
 
   render() {
     const formElementsArray = [];
@@ -161,15 +176,20 @@ class Auth extends Component {
       <div className={classes.Auth}>
         {authRedirect}
         {errorMerroge}
+        <h3>Register</h3>
         <form onSubmit={this.submitHandler}>
           {form}
-          <Button btnType="Success">Continue</Button>
+          <Button btnType="Success">Register</Button>
         </form>
-        <Button clicked={this.switchAuthModeHandler} btnType="Danger">
+        {/* <Button clicked={this.switchAuthModeHandler} btnType="Danger">
           {this.state.isSignup
             ? "I already have an acccount SIGNIN"
             : " I have no account, SIGNUP"}
-        </Button>
+        </Button> */}
+        <div className={classes.Account}>
+          <p>I already have an account,</p>
+          <Link to="/auth/login">LOG IN</Link>
+        </div>
       </div>
     );
   }

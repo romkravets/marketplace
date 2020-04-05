@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import axios from "../../axios-orders";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
-import { updateObject, checkValidity } from "../../shared/utillity";
+//import { updateObject, checkValidity } from "../../shared/utillity";
 
 import classes from "./Sell.css";
 
@@ -15,12 +15,13 @@ class Sell extends Component {
         elementType: "input",
         elementConfig: {
           type: "text",
-          placeholder: "Mail Address",
+          placeholder: "For example: Iron man suit",
         },
         value: "",
+        label: "TITLE",
         validation: {
           required: true,
-          //isEmail: true,
+          isEmail: true,
         },
         valid: false,
         touched: false,
@@ -29,12 +30,13 @@ class Sell extends Component {
         elementType: "input",
         elementConfig: {
           type: "text",
-          placeholder: "Location",
+          placeholder: "For example: Los Angeles, CA",
         },
         value: "",
+        label: "LOCATION",
         validation: {
           required: true,
-          //minLength: 6
+          minLength: 6,
         },
         valid: false,
         touched: false,
@@ -46,9 +48,10 @@ class Sell extends Component {
           placeholder: "For example: Iron man suit",
         },
         value: "",
+        label: "DESCRIPTION",
         validation: {
           required: true,
-          //minLength: 6
+          minLength: 6,
         },
         valid: false,
         touched: false,
@@ -60,9 +63,10 @@ class Sell extends Component {
           placeholder: "",
         },
         value: "",
+        label: "PHOTO",
         validation: {
           required: true,
-          //minLength: 6
+          minLength: 6,
         },
         valid: false,
         touched: false,
@@ -71,9 +75,10 @@ class Sell extends Component {
         elementType: "input",
         elementConfig: {
           type: "text",
-          placeholder: "Price",
+          placeholder: "For example: 198.5",
         },
         value: "",
+        label: "PRICE",
         validation: {
           required: true,
           //minLength: 6
@@ -82,37 +87,59 @@ class Sell extends Component {
         touched: false,
       },
     },
-    // title: "",
-    // location: "",
-    // description: "",
     image: "https://i.ibb.co/HBVnDZm/Mask.png",
-    // author: "Max",
-    // price: "",
     favorite: false,
   };
 
   inputChangedHandler = (event, controlName) => {
-    const updatedControls = updateObject(this.state.controls, {
-      [controlName]: updateObject(this.state.controls[controlName], {
+    const updatedControls = {
+      ...this.state.controls,
+      [controlName]: {
+        ...this.state.controls[controlName],
         value: event.target.value,
-        valid: checkValidity(
+        valid: this.checkValidity(
           event.target.value,
           this.state.controls[controlName].validation
         ),
         touched: true,
-      }),
-    });
-
+      },
+    };
     this.setState({ controls: updatedControls });
+  };
+
+  checkValidity = (value, rules) => {
+    let isValid = true;
+    if (!rules) {
+      return true;
+    }
+
+    if (rules.required) {
+      isValid = value.trim() !== "" && isValid;
+    }
+
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+    }
+
+    if (rules.isEmail) {
+      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+      isValid = pattern.test(value) && isValid;
+    }
+
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid;
+    }
+
+    if (rules.isNumeric) {
+      const pattern = /^\d+$/;
+      isValid = pattern.test(value) && isValid;
+    }
+
+    return isValid;
   };
 
   submitHandler = (event) => {
     event.preventDefault();
-    // this.props.onAuth(
-    //   this.state.controls.email.value,
-    //   this.state.controls.password.value,
-    //   this.state.isSignup
-    // );
     const data = {
       title: this.state.controls.title.value,
       location: this.state.controls.location.value,
@@ -126,26 +153,11 @@ class Sell extends Component {
       console.log(response);
     });
     if (this.props.isAuthenticated) {
-      this.props.history.push("/sell");
+      this.props.history.push("/");
     } else {
       this.props.history.push("/auth/login");
     }
   };
-
-  // postDataHandler = () => {
-  //   const data = {
-  //     title: this.state.title,
-  //     location: this.state.location,
-  //     description: this.state.description,
-  //     image: this.state.image,
-  //     author: this.state.author,
-  //     price: this.state.price,
-  //     favorite: this.state.favorite
-  //   };
-  //   axios.post("/product.json", data).then((response) => {
-  //     console.log(response);
-  //   });
-  // };
 
   render() {
     const formElmentsArray = [];
@@ -166,12 +178,13 @@ class Sell extends Component {
         invalid={!formElement.config.valid}
         shouldValidate={formElement.config.validation}
         tuched={formElement.config.tuched}
+        label={formElement.config.label}
         changed={(event) => this.inputChangedHandler(event, formElement.id)}
       />
     ));
     return (
       <div className={classes.Sell}>
-        <h2>Add product</h2>
+        <h3>Add product</h3>
         <form onSubmit={this.submitHandler}>
           {form}
           <Button btnType="Success">
