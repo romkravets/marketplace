@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 
 import Modal from "../../components/UI/Modal/Modal";
 import Auth from "../../containers/Auth/Auth";
@@ -37,10 +38,16 @@ const layout = (props) => {
         <Auth />
       </Modal> */}
       <Toolbar
+        isAuth={props.isAuthenticated}
+        isUser={props.isUserName}
         drawerToggleClicked={sideDrawerToggleHandler}
         loginCliced={purchaseLoginHandler}
       />
-      <SideDrawer open={sideDrawerIsVisible} closed={sideDrawerClosedHandler} />
+      <SideDrawer
+        isAuth={props.isAuthenticated}
+        open={sideDrawerIsVisible}
+        closed={sideDrawerClosedHandler}
+      />
 
       <main className={classes.Content}>{props.children}</main>
 
@@ -49,4 +56,11 @@ const layout = (props) => {
   );
 };
 
-export default layout;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+    isUserName: state.auth.userName,
+  };
+};
+
+export default connect(mapStateToProps)(layout);
