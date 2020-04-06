@@ -105,8 +105,7 @@ const sell = (props) => {
     event.preventDefault();
 
     const formData = {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/marketplace-91001.appspot.com/o/mask.png?alt=media&token=d43743f1-35af-45e5-ba65-75b8ca754308",
+      img: "https://i.ibb.co/HBVnDZm/Mask.png",
       favorite: false,
       time: new Date(),
     };
@@ -126,8 +125,9 @@ const sell = (props) => {
     };
 
     props.onSellProduct(product, props.token);
+
     if (props.isAuthenticated) {
-      props.history.push("/sell");
+      props.history.push("/");
     } else {
       props.history.push("/auth/login");
     }

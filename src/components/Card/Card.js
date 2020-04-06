@@ -7,7 +7,7 @@ import Favorite from "../UI/Favorite/Favorite";
 const card = (props) => {
   return (
     <div className={classes.Card}>
-      <img src={props.image} alt="" />
+      <img src={props.img} alt="" />
       <Favorite clicked={props.clicked} isFavorite={props.favorite} />
       <div className={classes.Descriprion}>
         <p>{props.title}</p>
