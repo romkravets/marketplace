@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+//import axois from "axios";
 
 //import axios from "../../axios-orders";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import * as actions from "../../store/actions/index";
 import { updateObject, checkValidity } from "../../shared/utillity";
+
+import Upload from "../../components/uploadImage/uploadImage";
 
 import classes from "./Sell.css";
 
@@ -90,14 +93,22 @@ const sell = (props) => {
     // favorite: false,
   });
 
-  const [formIsValid, setFormIsValid] = useState(false);
+  //const [formIsValid, setFormIsValid] = useState(false);
+  // const [selectedFile, setSelectedFile] = useState(null);
+  // let timePost = new Date();
+  // timePost.setDate(timePost.getDate() - 1);
+  // console.log(timePost);
+  // timePost.setHours(15, 35);
+  // console.log(timePost);
 
   const submitHandler = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
 
     const formData = {
-      image: "",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/marketplace-91001.appspot.com/o/mask.png?alt=media&token=d43743f1-35af-45e5-ba65-75b8ca754308",
       favorite: false,
+      time: new Date(),
     };
     for (let formElementIdentifier in orderForm) {
       formData[formElementIdentifier] = orderForm[formElementIdentifier].value;
@@ -140,7 +151,7 @@ const sell = (props) => {
       formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
     }
     setOrderForm(updatedOrderForm);
-    setFormIsValid(formIsValid);
+    //setFormIsValid(formIsValid);
   };
 
   const formElementsArray = [];
@@ -193,11 +204,35 @@ const sell = (props) => {
       changed={(event) => inputChangedHandler(event, formElement.id)}
     />
   ));
+  // console.log(selectedFile);
+  // const fileSelectedHandler = (event) => {
+  //   setSelectedFile({ selectedFile: event.target.files[0] });
+  // };
+
+  // const fileUploadHandler = () => {
+  //   const fd = new FormData();
+  //   fd.append("image", selectedFile);
+  //   axois
+  //     .post(
+  //       "https://us-central1-marketplace-91001.cloudfunctions.net/uploadFile",
+  //       fd
+  //     )
+  //     .then((res) => {
+  //       console.log(res);
+  //     });
+  // };
+
   return (
     <div className={classes.Sell}>
       <h3>Add product</h3>
+
+      {/* <input type="file" onChange={fileSelectedHandler} />
+      <button onClick={fileUploadHandler}>Upload</button> */}
+      <Upload />
+
       <form onSubmit={submitHandler}>
         {form}
+
         <Button btnType="Success">
           {props.isAuthenticated ? "SUBMIT" : "SIGN UP TO SUBMIT"}
         </Button>

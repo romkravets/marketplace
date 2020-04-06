@@ -5,7 +5,7 @@ import Home from "./containers/Home/Home";
 import Sell from "./containers/Sell/Sell";
 import Login from "./containers/Auth/Login/Login";
 import Auth from "./containers/Auth/Auth";
-import Registration from "./containers/Auth/Registration/Registration";
+//import Registration from "./containers/Auth/Registration/Registration";
 import Logout from "./containers/Auth/Logout/Logout";
 import Saved from "./containers/Saved/Saved";
 import Layout from "./hoc/Layout/Layout";

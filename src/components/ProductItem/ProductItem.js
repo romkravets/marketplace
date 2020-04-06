@@ -40,7 +40,7 @@ const productItem = (props) => {
         <div>{path.location}</div>
         <div>{path.description}</div>
         <div>{path.price}</div>
-        <div>{path.price}</div>
+        <div>{path.time}</div>
       </div>
       <div>
         <Link to="/">Back</Link>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 //import axios from "../../axios-orders";
 import { connect } from "react-redux";
 import classes from "./Home.css";
@@ -9,7 +9,7 @@ import Card from "../../components/Card/Card";
 //import Search from "../../components/Search/Search";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
-import ProcuctItems from "../../components/ProductItem/ProductItem";
+//import ProcuctItems from "../../components/ProductItem/ProductItem";
 import * as actions from "../../store/actions/index";
 
 const home = (props) => {
@@ -213,6 +213,7 @@ const home = (props) => {
   // console.log(props.products);
   let products = <Spinner />;
   if (!props.loading) {
+    console.log(props.products);
     //const firstItems = props.products.slice(0, 30);
     products = props.products.map((order) => (
       <div
