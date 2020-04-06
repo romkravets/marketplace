@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import axois from "axios";
 
 //import axios from "../../axios-orders";
 import Input from "../../components/UI/Input/Input";
@@ -91,6 +92,7 @@ const sell = (props) => {
   });
 
   const [formIsValid, setFormIsValid] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const submitHandler = (event) => {
     // event.preventDefault();
@@ -98,6 +100,7 @@ const sell = (props) => {
     const formData = {
       image: "",
       favorite: false,
+      time: new Date(),
     };
     for (let formElementIdentifier in orderForm) {
       formData[formElementIdentifier] = orderForm[formElementIdentifier].value;
@@ -125,6 +128,7 @@ const sell = (props) => {
   const inputChangedHandler = (event, inputIdentifier) => {
     const updatedFormElement = updateObject(orderForm[inputIdentifier], {
       value: event.target.value,
+      value: event.target.files[0],
       valid: checkValidity(
         event.target.value,
         orderForm[inputIdentifier].validation
@@ -193,11 +197,21 @@ const sell = (props) => {
       changed={(event) => inputChangedHandler(event, formElement.id)}
     />
   ));
+  const fileSelectedHandler = (event) => {
+    setSelectedFile({ selectedFile: event.target.files[0] });
+  };
+
+  const fileUploadHandler = () => {};
+
   return (
     <div className={classes.Sell}>
       <h3>Add product</h3>
+
+      <input type="file" onChange={fileSelectedHandler} />
+      <button onClick={fileUploadHandler}>Upload</button>
       <form onSubmit={submitHandler}>
         {form}
+
         <Button btnType="Success">
           {props.isAuthenticated ? "SUBMIT" : "SIGN UP TO SUBMIT"}
         </Button>
