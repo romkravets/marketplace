@@ -10,7 +10,9 @@ import Card from "../../components/Card/Card";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 //import ProcuctItems from "../../components/ProductItem/ProductItem";
+import { updateObject, checkValidity } from "../../shared/utillity";
 import * as actions from "../../store/actions/index";
+import axios from "../../axios-orders";
 
 const home = (props) => {
   // state = {
@@ -211,31 +213,97 @@ const home = (props) => {
   // console.log("fetchedProducts", fetchedProducts);
   // console.log("props.products", props.products);
   // console.log(props.products);
+
+  const favor = (event, productIdentifier) => {
+    console.log(productIdentifier);
+    console.log(props.products);
+    let productFav = null;
+    props.products
+      .filter((product) => product.id === productIdentifier)
+      .map((product) => {
+        console.log(product);
+        // product.productData.favorite;
+        // console.log(product.productData.favorite);
+        const productData = updateObject(product.productData, {
+          favorite: true,
+        });
+        //const updateProduct = updateObject(productData);
+        //console.log("updateProduct", updateProduct);
+        //console.log("updatedProductElement", updateProduct);
+        // console.log("(props.products", props.products);
+        axios
+          .post("/product.json", {
+            productData,
+          })
+          .then((res) => {
+            console.log(res);
+          });
+      });
+
+    // productFav = props.products.map((orderss) => {
+    //   if (orderss.id === productIdentifier) {
+    //     console.log("yss");
+    //   } else {
+    //     console.log("no");
+    //   }
+    // });
+    // const updatedProductElement = props.products;
+    // console.log(updatedProductElement);
+
+    // const test = props.products[productIdentifier].productData {
+    //   favorite: true,
+    // }
+
+    // }
+    // const updatedProductElement = updateObject(
+    //   props.products[productIdentifier],
+    //   {
+    //     favorite: true,
+    //   }
+    // );
+    // console.log(updatedProductElement);
+    // console.log(props.products);
+    // console.log("updatedProductElement", updatedProductElement);
+    // const updateProduct = updateObject(products, {
+    //   [productIdentifier]: updatedProductElement,
+    // });
+
+    //let formIsValid = true;
+    // for (let inputIdentifier in updatedOrderForm) {
+    //   formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+    // }
+    // //setOrderForm(updatedOrderForm);
+    //console.log(updateProduct);
+    //setFormIsValid(formIsValid);
+  };
+
   let products = <Spinner />;
   if (!props.loading) {
-    console.log(props.products);
+    //console.log(props.products);
     //const firstItems = props.products.slice(0, 30);
     products = props.products.map((order) => (
-      <div
+      // <div
+      //   key={order.id}
+      //   onClick={() =>
+      //     props.history.push({
+      //       pathname: "/product/" + order.id,
+      //       state: {
+      //         order,
+      //       },
+      //     })
+      //   }
+      // >
+
+      <Card
         key={order.id}
-        onClick={() =>
-          props.history.push({
-            pathname: "/product/" + order.id,
-            state: {
-              order,
-            },
-          })
-        }
-      >
-        <Card
-          key={order.id}
-          title={order.productData.title}
-          img={order.productData.img}
-          favorite={order.productData.favorite}
-          price={order.productData.price}
-          author={order.productData.author}
-        />
-      </div>
+        title={order.productData.title}
+        img={order.productData.img}
+        favorite={order.productData.favorite}
+        price={order.productData.price}
+        author={order.productData.author}
+        changed={(event) => favor(event, order.id)}
+      />
+      // </div>
     ));
   }
   return (
