@@ -7,10 +7,25 @@ import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import * as actions from "../../store/actions/index";
 import { updateObject, checkValidity } from "../../shared/utillity";
+import classes from "./Sell.css";
 
 import Upload from "../../components/uploadImage/uploadImage";
 
-import classes from "./Sell.css";
+import * as firebase from "firebase";
+
+let firebaseConfig = {
+  apiKey: "AIzaSyADCx6rRTqPDTNi5H2rcFcBPzcb3u4QSBk",
+  authDomain: "marketplace-91001.firebaseapp.com",
+  databaseURL: "https://marketplace-91001.firebaseio.com",
+  projectId: "marketplace-91001",
+  storageBucket: "marketplace-91001.appspot.com",
+  messagingSenderId: "561618160981",
+  appId: "1:561618160981:web:36105beef96ec8614233dc",
+  measurementId: "G-4LJCGWNGKS",
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+//firebase.analytics();
 
 const sell = (props) => {
   const [orderForm, setOrderForm] = useState({
@@ -93,6 +108,8 @@ const sell = (props) => {
     // favorite: false,
   });
 
+  const [selectedFile, setSelectedFile] = useState(null);
+
   //const [formIsValid, setFormIsValid] = useState(false);
   // const [selectedFile, setSelectedFile] = useState(null);
   // let timePost = new Date();
@@ -112,6 +129,21 @@ const sell = (props) => {
     for (let formElementIdentifier in orderForm) {
       formData[formElementIdentifier] = orderForm[formElementIdentifier].value;
     }
+
+    let storageRef = firebase.storage().ref("products/" + selectedFile.name);
+    let task = storageRef.put(selectedFile);
+
+    task.on(
+      "state_changed",
+      function progress(snapshot) {
+        let prercentage =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // uploader.value = prercentage;
+      },
+      function error(err) {},
+
+      function complete() {}
+    );
 
     const product = {
       // title: this.state.controls.title.value,
@@ -153,6 +185,12 @@ const sell = (props) => {
     }
     setOrderForm(updatedOrderForm);
     //setFormIsValid(formIsValid);
+  };
+
+  const fileChangedHandler = (event) => {
+    console.log(event.target.files[0]);
+    setSelectedFile(event.target.files[0]);
+    console.log("fileChangedHandler", selectedFile);
   };
 
   const formElementsArray = [];
@@ -233,6 +271,7 @@ const sell = (props) => {
 
       <form onSubmit={submitHandler}>
         {form}
+        <input type="file" onChange={(event) => fileChangedHandler(event)} />
 
         <Button btnType="Success">
           {props.isAuthenticated ? "SUBMIT" : "SIGN UP TO SUBMIT"}
