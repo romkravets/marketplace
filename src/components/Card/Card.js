@@ -5,7 +5,7 @@ import classes from "./Card.css";
 import Favorite from "../UI/Favorite/Favorite";
 
 const card = (props) => {
-  console.log(props.id);
+  // console.log(props.id);
   return (
     <div className={classes.Card}>
       <img src={props.img} alt="" />

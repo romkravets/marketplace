@@ -282,17 +282,17 @@ const home = (props) => {
     //console.log(props.products);
     //const firstItems = props.products.slice(0, 30);
     products = props.products.map((order) => (
-      // <div
-      //   key={order.id}
-      //   onClick={() =>
-      //     props.history.push({
-      //       pathname: "/product/" + order.id,
-      //       state: {
-      //         order,
-      //       },
-      //     })
-      //   }
-      // >
+      <div
+        key={order.id}
+        onClick={() =>
+          props.history.push({
+            pathname: "/product/" + order.id,
+            state: {
+              order,
+            },
+          })
+        }
+      >
 
       <Card
         key={order.id}
@@ -303,7 +303,7 @@ const home = (props) => {
         author={order.productData.author}
         changed={(event) => favor(event, order.id)}
       />
-      // </div>
+      </div>
     ));
   }
   return (

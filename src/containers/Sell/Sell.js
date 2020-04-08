@@ -65,7 +65,7 @@ const sell = (props) => {
         type: "file",
         placeholder: "",
       },
-      value: "",
+      valueFile: "",
       label: "PHOTO",
       validation: {
         required: true,
@@ -112,6 +112,7 @@ const sell = (props) => {
     for (let formElementIdentifier in orderForm) {
       formData[formElementIdentifier] = orderForm[formElementIdentifier].value;
     }
+
     const product = {
       // title: this.state.controls.title.value,
       // location: this.state.controls.location.value,
