@@ -36,7 +36,7 @@ const productItem = (props) => {
   return (
     <div>
       <div>
-        <img src={path.img} />
+        <img src={path.image} />
         <div>{path.title}</div>
         <div>{path.location}</div>
         <div>{path.description}</div>

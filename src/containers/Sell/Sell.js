@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 //import axois from "axios";
+import * as firebase from "firebase";
 
 //import axios from "../../axios-orders";
 import Input from "../../components/UI/Input/Input";
@@ -10,8 +11,6 @@ import { updateObject, checkValidity } from "../../shared/utillity";
 import classes from "./Sell.css";
 
 import Upload from "../../components/uploadImage/uploadImage";
-
-import * as firebase from "firebase";
 
 let firebaseConfig = {
   apiKey: "AIzaSyADCx6rRTqPDTNi5H2rcFcBPzcb3u4QSBk",
@@ -74,21 +73,21 @@ const sell = (props) => {
       valid: false,
       touched: false,
     },
-    image: {
-      elementType: "input",
-      elementConfig: {
-        type: "file",
-        placeholder: "",
-      },
-      valueFile: "",
-      label: "PHOTO",
-      validation: {
-        required: true,
-        minLength: 6,
-      },
-      valid: false,
-      touched: false,
-    },
+    // image: {
+    //   elementType: "input",
+    //   elementConfig: {
+    //     type: "file",
+    //     placeholder: "",
+    //   },
+    //   valueFile: "",
+    //   label: "PHOTO",
+    //   validation: {
+    //     required: true,
+    //     minLength: 6,
+    //   },
+    //   valid: false,
+    //   touched: false,
+    // },
     price: {
       elementType: "input",
       elementConfig: {
@@ -121,44 +120,71 @@ const sell = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    const formData = {
-      img: "https://i.ibb.co/HBVnDZm/Mask.png",
-      favorite: false,
-      time: new Date(),
-    };
-    for (let formElementIdentifier in orderForm) {
-      formData[formElementIdentifier] = orderForm[formElementIdentifier].value;
-    }
+    // const formData = {
+    //   //img: "https://i.ibb.co/HBVnDZm/Mask.png",
+    //   favorite: false,
+    //   time: new Date(),
+    // };
+    // for (let formElementIdentifier in orderForm) {
+    //   formData[formElementIdentifier] = orderForm[formElementIdentifier].value;
+    // }
 
+    let downloadURL;
     let storageRef = firebase.storage().ref("products/" + selectedFile.name);
     let task = storageRef.put(selectedFile);
 
     task.on(
       "state_changed",
-      function progress(snapshot) {
-        let prercentage =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        // uploader.value = prercentage;
-      },
-      function error(err) {},
+      null,
+      null,
+      function () {
+        task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          console.log("File available at", downloadURL);
+          let image = downloadURL;
+          console.log("image", image);
 
-      function complete() {}
+          const formData = {
+            //img: "https://i.ibb.co/HBVnDZm/Mask.png",
+            image: image,
+            favorite: false,
+            time: new Date(),
+          };
+
+          for (let formElementIdentifier in orderForm) {
+            formData[formElementIdentifier] =
+              orderForm[formElementIdentifier].value;
+          }
+
+          console.log("formData", formData);
+
+          let product = {
+            productData: formData,
+            userId: props.userId,
+          };
+          console.log("product", product);
+          firebase
+            .database()
+            .ref(`product`)
+            // .child("productData")
+            .push(product);
+        });
+      }
+      // function progress(snapshot) {
+      //   let prercentage =
+      //     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      //   // uploader.value = prercentage;
+      // },
+      // function error(err) {},
+
+      // function complete() {}
     );
 
-    const product = {
-      // title: this.state.controls.title.value,
-      // location: this.state.controls.location.value,
-      // description: this.state.controls.description.value,
-      // image: this.state.image,
-      // author: this.state.author,
-      // price: this.state.controls.price.value,
-      // favorite: this.state.favorite,
-      productData: formData,
-      userId: props.userId,
-    };
+    // const product = {
+    //   productData: formData,
+    //   userId: props.userId,
+    // };
 
-    props.onSellProduct(product, props.token);
-
+    //props.onSellProduct(product, props.token);
     if (props.isAuthenticated) {
       props.history.push("/");
     } else {

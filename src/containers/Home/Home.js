@@ -293,16 +293,15 @@ const home = (props) => {
           })
         }
       >
-
-      <Card
-        key={order.id}
-        title={order.productData.title}
-        img={order.productData.img}
-        favorite={order.productData.favorite}
-        price={order.productData.price}
-        author={order.productData.author}
-        changed={(event) => favor(event, order.id)}
-      />
+        <Card
+          key={order.id}
+          title={order.productData.title}
+          image={order.productData.image}
+          favorite={order.productData.favorite}
+          price={order.productData.price}
+          author={order.productData.author}
+          changed={(event) => favor(event, order.id)}
+        />
       </div>
     ));
   }
