@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-import Modal from "../../components/UI/Modal/Modal";
-import Auth from "../../containers/Auth/Auth";
+//import Modal from "../../components/UI/Modal/Modal";
+//import Auth from "../../containers/Auth/Auth";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 
@@ -14,7 +14,7 @@ import Aux from "../Auxiliary/Auxiliary";
 const layout = (props) => {
   const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
   //const [isFavorite, setFavorite] = useState(false);
-  const [purchasing, setPurchasing] = useState(false);
+  //const [purchasing, setPurchasing] = useState(false);
 
   const sideDrawerClosedHandler = () => {
     setSideDrawerIsVisible(false);
@@ -24,13 +24,13 @@ const layout = (props) => {
     setSideDrawerIsVisible(!sideDrawerIsVisible);
   };
 
-  const purchaseCancelHandler = () => {
-    setPurchasing(false);
-  };
+  // const purchaseCancelHandler = () => {
+  //   setPurchasing(false);
+  // };
 
-  const purchaseLoginHandler = () => {
-    setPurchasing(!false);
-  };
+  // const purchaseLoginHandler = () => {
+  //   setPurchasing(!false);
+  // };
 
   return (
     <Aux>
@@ -41,7 +41,7 @@ const layout = (props) => {
         isAuth={props.isAuthenticated}
         isUser={props.isUserName}
         drawerToggleClicked={sideDrawerToggleHandler}
-        loginCliced={purchaseLoginHandler}
+        // loginCliced={purchaseLoginHandler}
       />
       <SideDrawer
         isAuth={props.isAuthenticated}
