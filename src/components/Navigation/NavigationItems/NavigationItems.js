@@ -19,7 +19,14 @@ const navigationItems = (props) => (
         SELL
       </Button>
     </Link>
-    <a onClick={props.clicked}>LOGIN</a>
+    {!props.isAuthenticated ? (
+      <Link to="/auth/login">LOGIN</Link>
+    ) : (
+      <div>
+        <div>{props.isUserName}</div>
+        <Link to="/auth/logout">Logout</Link>
+      </div>
+    )}
     <Link to="/favorite">
       <img src={heartIcon} alt="" />
     </Link>
