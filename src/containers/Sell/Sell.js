@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 //import axois from "axios";
-import * as firebase from "firebase";
+// import * as firebase from "firebase";
+import firebase from "../../firebase";
 
 //import axios from "../../axios-orders";
 import Input from "../../components/UI/Input/Input";
@@ -12,19 +13,19 @@ import classes from "./Sell.css";
 
 import Upload from "../../components/uploadImage/uploadImage";
 
-let firebaseConfig = {
-  apiKey: "AIzaSyADCx6rRTqPDTNi5H2rcFcBPzcb3u4QSBk",
-  authDomain: "marketplace-91001.firebaseapp.com",
-  databaseURL: "https://marketplace-91001.firebaseio.com",
-  projectId: "marketplace-91001",
-  storageBucket: "marketplace-91001.appspot.com",
-  messagingSenderId: "561618160981",
-  appId: "1:561618160981:web:36105beef96ec8614233dc",
-  measurementId: "G-4LJCGWNGKS",
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-//firebase.analytics();
+// let firebaseConfig = {
+//   apiKey: "AIzaSyADCx6rRTqPDTNi5H2rcFcBPzcb3u4QSBk",
+//   authDomain: "marketplace-91001.firebaseapp.com",
+//   databaseURL: "https://marketplace-91001.firebaseio.com",
+//   projectId: "marketplace-91001",
+//   storageBucket: "marketplace-91001.appspot.com",
+//   messagingSenderId: "561618160981",
+//   appId: "1:561618160981:web:36105beef96ec8614233dc",
+//   measurementId: "G-4LJCGWNGKS",
+// };
+// // Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
+// //firebase.analytics();
 
 const sell = (props) => {
   const [orderForm, setOrderForm] = useState({

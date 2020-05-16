@@ -14,25 +14,9 @@ import { updateObject, checkValidity } from "../../shared/utillity";
 import * as actions from "../../store/actions/index";
 import axios from "../../axios-orders";
 
+import firebase from "../../firebase";
+
 const home = (props) => {
-  // state = {
-  //   //products: [],
-  //   //loading: true,
-  //   selectedPostId: null,
-  //   //error: false,
-  //   query: "",
-  //   filteredData: [],
-  //   queryError: true,
-  // };
-  // const [productsState, setProductsState] = useState([]);
-  // const [error, setError] = useState(false);
-  // const [selectedPostId, setSelectedPostId] = useState(null);
-
-  // useEffect(() => {
-  //   const { onFetchProducts } = props;
-  //   onFetchProducts();
-  // }, [onFetchProducts]);
-
   const { onFetchProducts } = props;
   useEffect(() => {
     onFetchProducts();
@@ -195,86 +179,20 @@ const home = (props) => {
 
   // // </Aux>
 
-  // const formElementsArray = [];
-  // for (let key in props.products) {
-  //   formElementsArray.push({
-  //     id: key,
-  //     products: props.products[key],
-  //   });
-  // }
-
-  // const fetchedProducts = [];
-  // for (let key in props.products) {
-  //   fetchedProducts.push({
-  //     ...props.products[key],
-  //     id: key,
-  //   });
-  // }
-  // console.log("fetchedProducts", fetchedProducts);
-  // console.log("props.products", props.products);
-  // console.log(props.products);
-
   const favor = (event, productIdentifier) => {
     console.log(productIdentifier);
     console.log(props.products);
     let productFav = null;
-    props.products
-      .filter((product) => product.id === productIdentifier)
-      .map((product) => {
-        console.log(product);
-        // product.productData.favorite;
-        // console.log(product.productData.favorite);
-        const productData = updateObject(product.productData, {
-          favorite: true,
-        });
-        //const updateProduct = updateObject(productData);
-        //console.log("updateProduct", updateProduct);
-        //console.log("updatedProductElement", updateProduct);
-        // console.log("(props.products", props.products);
-        axios
-          .post("/product.json", {
-            productData,
-          })
-          .then((res) => {
-            console.log(res);
-          });
-      });
-
-    // productFav = props.products.map((orderss) => {
-    //   if (orderss.id === productIdentifier) {
-    //     console.log("yss");
-    //   } else {
-    //     console.log("no");
-    //   }
-    // });
-    // const updatedProductElement = props.products;
-    // console.log(updatedProductElement);
-
-    // const test = props.products[productIdentifier].productData {
-    //   favorite: true,
-    // }
-
-    // }
-    // const updatedProductElement = updateObject(
-    //   props.products[productIdentifier],
-    //   {
-    //     favorite: true,
-    //   }
-    // );
-    // console.log(updatedProductElement);
-    // console.log(props.products);
-    // console.log("updatedProductElement", updatedProductElement);
-    // const updateProduct = updateObject(products, {
-    //   [productIdentifier]: updatedProductElement,
-    // });
-
-    //let formIsValid = true;
-    // for (let inputIdentifier in updatedOrderForm) {
-    //   formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
-    // }
-    // //setOrderForm(updatedOrderForm);
-    //console.log(updateProduct);
-    //setFormIsValid(formIsValid);
+    props.products.filter((product) => product.id === productIdentifier);
+    // .map((product) => {
+    let ref = firebase.database().ref().child("product");
+    let logsProd = ref.child(productIdentifier);
+    let productData = logsProd.child("productData");
+    console.log("logsProd", productData);
+    let favoreite = {
+      favorite: true,
+    };
+    productData.update(favoreite);
   };
 
   let products = <Spinner />;
@@ -282,27 +200,27 @@ const home = (props) => {
     //console.log(props.products);
     //const firstItems = props.products.slice(0, 30);
     products = props.products.map((order) => (
-      <div
+      // <div
+      //   key={order.id}
+      //   onClick={() =>
+      //     props.history.push({
+      //       pathname: "/product/" + order.id,
+      //       state: {
+      //         order,
+      //       },
+      //     })
+      //   }
+      // >
+      <Card
         key={order.id}
-        onClick={() =>
-          props.history.push({
-            pathname: "/product/" + order.id,
-            state: {
-              order,
-            },
-          })
-        }
-      >
-        <Card
-          key={order.id}
-          title={order.productData.title}
-          image={order.productData.image}
-          favorite={order.productData.favorite}
-          price={order.productData.price}
-          author={order.productData.author}
-          changed={(event) => favor(event, order.id)}
-        />
-      </div>
+        title={order.productData.title}
+        image={order.productData.image}
+        favorite={order.productData.favorite}
+        price={order.productData.price}
+        author={order.productData.author}
+        changed={(event) => favor(event, order.id)}
+      />
+      // </div>
     ));
   }
   return (

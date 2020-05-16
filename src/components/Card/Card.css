@@ -16,6 +16,11 @@
    font-weight: bold;
 }
 
+.Image {
+   width: 200px;
+   height: 150px;
+}
+
 .Card p {
    font-size: 15px;
    line-height: 17px;
