@@ -5,7 +5,7 @@
   "dependencies": {
     "@google-cloud/storage": "^1.7.0",
     "autoprefixer": "7.1.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-core": "6.26.0",
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
